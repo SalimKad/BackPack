@@ -8,13 +8,13 @@ def main(list,max):
     final_list = try_to_fill(gave_list, max, final_list)
     print(final_list)
     
-    while (exact_sum(final_list, sum) == -1):
+    while (exact_sum(final_list,  sum) == -1) and gave_list != []:
         print(final_list)
         gave_list.remove(final_list[-1])
         final_list.remove(final_list[-1])
         final_list = try_to_fill(gave_list, max, final_list)
         print(final_list)
-
+        
         
 
 def try_to_fill(gave_list, max, started_list):
@@ -22,7 +22,10 @@ def try_to_fill(gave_list, max, started_list):
     final_list = started_list
     used_list = gave_list
 
+
     while exact_sum(used_list,max) < 0 and len(used_list) > 0:
+        print(used_list)
+        print(final_list)
         if exact_sum(used_list,max) + used_list[0] <= 0 :
             final_list.append(used_list[0])
             used_list.remove(used_list[0])
