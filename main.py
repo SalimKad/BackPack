@@ -1,104 +1,40 @@
 """
 The BackPack problem can be compared to this new problem :
-We have to choose the biggest elements of a list so that their sum is equal to a given number.
+We have a backpack with a capacity of 20 kg. We have a list of items with their weight and value.
+We want to put the items in the backpack so that the total weight is less than or equal to the capacity and the total value is maximum.
 """
-
-gave_list = [50, 11, 13, 7, 15, 18, 9, 20, 12, 10, 8, 16, 14, 17, 19, 11, 13, 7, 15, 18, 9, 20, 12, 10, 8, 16, 14, 17, 19]
-
-def list_sort(list):
-    #This function will sort the list
-    gave_list = list
-    returning_list = []
-
-    while len(gave_list) > 0:
-        biggest = gave_list[0]
-        for i in range(0,len(gave_list)):
-            if gave_list[i] > biggest:
-                biggest = gave_list[i]
-        returning_list.append(biggest)
-        gave_list.remove(biggest)
-        
-    return returning_list
-
-def exact_sum(list, sum):
-    #This function will check if the sum of the list is equal to the sum
-    list_sum = 0
-    for i in list:
-        list_sum += i
-    print(list_sum)
-    if list_sum < sum or list==[]:
-        return -1
-    elif list_sum == sum:
-        return 0
-    else :
-        return 1
-
-def main():
-    #This function will call the other functions
-    used_list = list_sort(gave_list)
-    final_list = []
-    sum_to_reach = int(input("Enter the sum you want to reach : "))
-
-    while exact_sum(final_list, sum_to_reach) == -1 :
-        print(final_list)
-        print(used_list)
-
-        if exact_sum(final_list, sum_to_reach-used_list[0])  < 0 and len(used_list) > 0 :
-            print("We can't reach the sum")
-            final_list.append(used_list[0])
-            used_list.remove(used_list[0])
-            
-        elif exact_sum(final_list, sum_to_reach-used_list[0])  > 0 and len(used_list) > 0 :
-            print("we will remove the last element")
-            final_list.remove(final_list[-1])
-
-main()
-"""
+from random import gammavariate
 
 
-def main(list,max):
-    final_list = []
-    sum = 0
+gave_list = [[18,14], [37,2], [1,4], [25,3], [4,50], [12,7], [9,10], [16,9], [7,24], [5,21]] # list of items, weight and value
+max_weight = int(input("Enter the max weight of the backpack : "))
 
-    gave_list = list_sort(list)
-    final_list = try_to_fill(gave_list, max, final_list)
-    
-    while (exact_sum(final_list,  sum) == -1) and gave_list != []:
-        print(final_list)
-        gave_list.remove(final_list[-1])
-        final_list.remove(final_list[-1])
-        final_list = try_to_fill(gave_list, max, final_list)
-        print(final_list)
-        
-        
-
-def try_to_fill(gave_list, max, started_list):
-    #started list is the list that is already filled
-    final_list = started_list
+def greedy_methode(gave_list) :
     used_list = gave_list
 
-    while exact_sum(final_list,max) < 0 and len(used_list) > 0 :
-        if exact_sum(used_list,max) + used_list[0] <= 0 :
-            final_list.append(used_list[0])
-            used_list.remove(used_list[0])
-        else :
-            used_list.remove(used_list[0])
-
-    return final_list
-            
+    for item in used_list :
+        item.append(used_list.index(item))
+        item.append(item[1]/item[0])
         
-"""
+    print(used_list)
+    used_list.sort(key=lambda x: x[3], reverse=True) # sort by ratio
+    print(used_list)
 
+    while weight_sum(used_list) > max_weight :
+        used_list.pop()
+        print(used_list)
+    return used_list
 
-"""def try_to_fill(list, sum):
-    final_list = []
+def weight_sum(gave_list) :
+    sum = 0
+    for item in gave_list :
+        sum += item[0]
+    return sum
 
-    for i in range(0, len(list)):
-        if (exact_sum(final_list, sum) == -1):
-            sum += list[i]
-            final_list.append(list[i])
-    
-    if (exact_sum(final_list, sum) == 0):
-        return final_list
-    else : 
-        return final_list[-1]"""
+def display_backpack(gave_list) :
+    print("\nThe items in the backpack are : ")
+    for item in gave_list :
+        print("Number {}, wich weighs {} and has a value of {}, so a ratio of {}".format(item[2], item[0], item[1], item[3]))
+    print("The total weight of the backpack is : {}".format(weight_sum(gave_list)))
+
+display_backpack(greedy_methode(gave_list))
