@@ -9,7 +9,7 @@ from random import gammavariate
 gave_list = [[18,14], [37,2], [1,4], [25,3], [4,50], [12,7], [9,10], [16,9], [7,24], [5,21]] # list of items, weight and value
 max_weight = int(input("Enter the max weight of the backpack : "))
 
-def greedy_methode(gave_list) :
+def greedy_method(gave_list) :
     used_list = gave_list
 
     for item in used_list :
@@ -25,6 +25,8 @@ def greedy_methode(gave_list) :
         print(used_list)
     return used_list
 
+
+
 def weight_sum(gave_list) :
     sum = 0
     for item in gave_list :
@@ -37,4 +39,4 @@ def display_backpack(gave_list) :
         print("Number {}, wich weighs {} and has a value of {}, so a ratio of {}".format(item[2], item[0], item[1], item[3]))
     print("The total weight of the backpack is : {}".format(weight_sum(gave_list)))
 
-display_backpack(greedy_methode(gave_list))
+display_backpack(greedy_method(gave_list))
