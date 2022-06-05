@@ -13,13 +13,13 @@ def greedy_method(gave_list) :
         item.append(used_list.index(item))
         item.append(item[1]/item[0])
         
-    print(used_list)
+    #print(used_list)
     used_list.sort(key=lambda x: x[3], reverse=True) # sort by ratio
-    print(used_list)
+    #print(used_list)
 
     while weight_sum(used_list) > max_weight :
         used_list.pop()
-        print(used_list)
+        #print(used_list)
     return used_list
 
 def brut_force_method(max_weight,gave_list) :
@@ -42,11 +42,18 @@ def weight_sum(gave_list) :
         sum += item[0]
     return sum
 
+def value_sum(gave_list) :
+    sum = 0
+    for item in gave_list :
+        sum += item[1]
+    return sum
+
 def display_backpack(gave_list) :
     print("\nLes objets dans le sac à dos sont : ")
     for item in gave_list :
         print("Numéro {}, qui pèse {} et a une valeur de {}, donc un ratio de {}".format(item[2], item[0], item[1], item[3]))
     print("Le poids total du sac à dos actuel est donc de : {}".format(weight_sum(gave_list)))
+    print("La valeur totale du sac à dos actuel est donc de : {}".format(value_sum(gave_list)))
 
 
 def list_convert(gave_list) :
@@ -80,10 +87,10 @@ def sommexac(n,max_weight,weights,prices):
                    sommexac(n-1,max_weight,weights,prices))
     
 
-print("Résultat de la fonction récursive :")
+print("\n\nRésultat de la fonction récursive :")
 weights = [18,37,1,25,4,12,9,16,7,5]
 prices = [14,2,4,3,50,7,10,9,24,21]
 n = len(weights)
 
  
-print("L'utilité maximale que l'on peut avoir avec un poids total de exactement", max_weight, "est : " ,sommexac(n,max_weight,weights,prices))
+print("L'utilité maximale que l'on peut avoir avec un poids total de exactement {} est : {}\n".format(max_weight,sommexac(n,max_weight,weights,prices)))
